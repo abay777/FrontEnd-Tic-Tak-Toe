@@ -5,11 +5,9 @@
 :root {
     --cell-size:100px;
     --mark-size: calc(var(--cell-size) * .9);
-
 }
 
 body{
-
     margin: 0;
 }
 
@@ -41,7 +39,6 @@ body{
 .cell:nth-child(2),
 .cell:nth-child(3){
     border-top:none ;
-
 }
 
 .cell:nth-child(3n+1){
@@ -76,7 +73,6 @@ body{
 .board.x .cell:not(.x):not(.circle):hover::after,
 .board.circle .cell:not(.x):not(.circle):hover::before{
     background-color: lightgray;
-
 }
 
 
@@ -167,8 +163,9 @@ body{
     display:flex;
    flex-direction: row;
    justify-content: center;
-   align-items: start;
-   margin-left: 80px;
+   align-items: center;
+   justify-items: center;
+   margin-left: 50px;
    
   
 }
@@ -195,24 +192,31 @@ body{
 .score{
   font-size: 30px;
   width: 100%;
-  
   border-top:1px solid black ;
 }
 
 .new-game{
     padding: 15px;
+    vertical-align: top;
     background-color: black;
     color: white;
     font-size: 14px;
-    margin-left: 25px;
-    margin-top: 50px;
+    margin-left: 15px;
+    margin-top: 30px;
     border: none;
     border-radius: 3px;
-    transition: background-color 2s,
-    color 1s;
+    transition: background-color .15s,
+    color .15s;
 }
 
 .new-game:hover{
     background-color: rgb(237, 0, 0);
     color: black;
+}
+
+.button-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 37px;
 }
