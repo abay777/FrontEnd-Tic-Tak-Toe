@@ -147,7 +147,69 @@ function newGame(){
   .addEventListener('click',() => {
     localStorage.clear();  
     location.reload()
-    
+  
   })
   
 }
+
+let intervalId ;
+function autoPlay() {
+  const delayBetweenMoves = 1000; // Adjust the delay between moves in milliseconds
+
+  function simulateMove() {
+    const emptyCells = [...cellElements]
+    .filter(cell => !cell.classList.contains(X_CLASS) && 
+    !cell.classList.contains(CIRCLE_CLASS));
+    
+    if (emptyCells.length === 0) {
+      return; // No empty cells left
+    }
+
+    const randomIndex = Math.floor(Math.random() * emptyCells.length);
+    const randomCell = emptyCells[randomIndex];
+
+    const currentClass = circleTurn ? CIRCLE_CLASS : X_CLASS;
+    placemark(currentClass, randomCell);
+
+    if (checkwin(currentClass)) {
+      renderWinningMessage(currentClass);
+      restartButton();
+      scorebord(currentClass);
+    } else if (isDraw()) {
+      renderWinningMessage('draw');
+      restartButton();
+    } else {
+      swaplayer();
+      setboardHovering(circleTurn);
+    }
+  }
+ 
+  clearInterval(intervalId);
+
+ intervalId = setInterval(simulateMove, delayBetweenMoves)
+
+  
+}
+
+let toggle = false; // Initialize toggle as false
+
+function toggleAutoplay() {
+  const autoButton = document.getElementById('Autoplay');
+
+  if (toggle) {
+    autoButton.innerHTML = 'AutoPlay';
+    document.removeEventListener('click', autoPlay);
+    clearInterval(intervalId)
+
+  } else {
+    autoButton.innerHTML = 'Stop AutoPlay';
+    document.addEventListener('click', autoPlay);
+
+  }
+
+  toggle = !toggle;
+}
+
+const autoButton = document.getElementById('Autoplay');
+autoButton.addEventListener('click', toggleAutoplay);
+
